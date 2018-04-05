@@ -6,7 +6,7 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:59:38 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/03 15:23:56 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/04 16:39:47 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,51 +49,55 @@ t_stack			*get_last_element(t_stack *a)
 {
 	while (a && a->next)
 		a = a->next;
-	return a;
+	return (a);
 }
 
 void			push_max(t_stack **aa, t_stack **bb)
 {
-	t_stack 	*first;
-	t_stack 	*last;
-	t_stack 	*next;
-	t_stack		*a;
-	t_stack		*b;
+	t_stack *first;
+	t_stack *last;
+	t_stack *next;
+	t_stack *b;
 
-	b = *aa;
-	a = *bb;
-	if (a && a->next)
+	b = *bb;
+	if (b && b->next)
 	{
-		next = a->next;
-		first = a;
-		a = get_last_element(a);
+		next = b->next;
+		first = b;
+		b = get_last_element(b);
 		last = get_last_element(*aa);
-		if (last->value > first->value && last->value >= next->value)
+		if (b->value > first->value && b->value >= next->value)
 		{
-			if ((*aa) && a && (a->value > (*aa)->value))
+			if (aa && (*aa) && ((*aa)->value > last->value))
 				ft_putstr(rrr(aa, bb));
 			else
 				ft_putstr(rrb(bb));
+			push_max(aa, bb);
 		}
-		else if (next->value > first->value && next->value > last->value)
+		else if (next->value > first->value && next->value > b->value)
 		{
-			if (next->next && (next->next)->next && ((next->next)->value > last->value)
+			if (next->next && ((next->next)->value > (b)->value)
 				&& ((next->next)->value > first->value))
+			{
 				ft_putstr(rb(aa));
+				push_max(aa, bb);
+			}
 			else
-				ft_putstr(sb(*aa));
+				ft_putstr(sb(*bb));
 		}
 		ft_putstr(pa(aa, bb));
 	}
+	else if (b)
+		ft_putstr(pa(aa, bb));
 }
 
 void			push_min(t_stack **aa, t_stack **bb)
 {
-	t_stack 	*first;
-	t_stack 	*last;
-	t_stack 	*next;
-	t_stack		*a;
-	t_stack		*b;
+	t_stack *first;
+	t_stack *last;
+	t_stack *next;
+	t_stack *a;
+	t_stack *b;
 
 	a = *aa;
 	b = *bb;
@@ -103,23 +107,27 @@ void			push_min(t_stack **aa, t_stack **bb)
 		first = a;
 		b = get_last_element(b);
 		last = get_last_element(*aa);
-		 if (last->value < first->value && last->value <= next->value)
+		if (last->value <= first->value && last->value <= next->value)
 		{
 			if ((*bb) && b && (b->value > (*bb)->value))
 				ft_putstr(rrr(aa, bb));
 			else
 				ft_putstr(rra(aa));
+			push_min(aa, bb);
 		}
 		else if (next->value < first->value && next->value < last->value)
 		{
-			if (next->next && (next->next)->next && ((next->next)->value < last->value)
+			if (next->next && ((next->next)->value < last->value)
 				&& ((next->next)->value < first->value))
+			{
 				ft_putstr(ra(aa));
+				push_min(aa, bb);
+			}
 			else
 				ft_putstr(sa(*aa));
 		}
 		if (!is_stack_sorted(*aa))
-				ft_putstr(pb(aa, bb));
+			ft_putstr(pb(aa, bb));
 	}
 }
 
@@ -131,9 +139,9 @@ int			is_rev_sorted(t_stack **aa)
 
 	a = *aa;
 	while (a && a->next)
-	{	
+	{
 		v = a->value;
-		vnext = (a->next)->value;	
+		vnext = (a->next)->value;
 		if (v < vnext)
 			return (0);
 		a = a->next;
@@ -148,14 +156,11 @@ void		sort_stack(t_stack **a, t_stack **b)
 		return ;
 	while ((*a)->next && (!is_sorted(*a, *b) && !is_stack_sorted(*a)))
 	{
-		is_rev_sorted(a);
-		push_min(a, b);
+		if (!is_rev_sorted(a))
+			push_min(a, b);
 	}
 	while ((*b) && (*b)->next && !is_sorted(*a, *b))
-	{
 		push_max(a, b);
-	  
-	}
 	if (is_sorted(*a, *b))
 	{
 		while (*b)
@@ -163,8 +168,8 @@ void		sort_stack(t_stack **a, t_stack **b)
 	}
 	else
 	{
-		if (is_stack_sorted(*a) && is_stack_sorted(*b))
-			ft_putstr(pa(a, b));		
-		//sort_stack(a, b);
+		if (is_stack_sorted(*a) && is_stack_sorted(*b) && !is_sorted(*a, *b))
+			push_max(a, b);
+		sort_stack(a, b);
 	}
 }

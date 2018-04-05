@@ -6,13 +6,13 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 12:54:56 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/02 12:55:14 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/04 17:31:17 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 
-int			long_atoi(const char *str, int *error)
+long long int	long_atoi(const char *str, int *error)
 {
 	int					sign;
 	size_t				i;
@@ -40,7 +40,7 @@ int			long_atoi(const char *str, int *error)
 	return (check * sign);
 }
 
-void		ft_putbignbr(long long nb)
+void			ft_putbignbr(long long nb)
 {
 	if (nb >= 10 || nb <= -10)
 	{
