@@ -9,15 +9,16 @@
 # define MIN (-2147483648)
 # define MAX 2147483647
 
-
 typedef struct 			s_stack
 {
 	long long int		value;
 	struct s_stack		*next;
 }						t_stack;
 
-
 //methods:
+int				check_duplicates(long long int *input, int len);
+int				build_stack(t_stack **a,int argc, char const *argv[]);
+int				print_error(long long int *input);
 t_stack			*new_stack(long long int value);
 void			free_stack(t_stack *head);
 long long int	long_atoi(const char *str, int *error);

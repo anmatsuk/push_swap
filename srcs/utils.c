@@ -6,7 +6,7 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 12:54:56 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/04 17:31:17 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/04 18:51:34 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,53 @@ void			ft_putbignbr(long long nb)
 		else
 			ft_putchar(nb % 10 + '0');
 	}
+}
+
+int				check_duplicates(long long int *input, int len)
+{
+	int i;
+	int j;
+
+	i = -1;
+	j = -1;
+	while (++i < len)
+	{
+		j = i;
+		while (++j < len)
+		{
+			if (*(input + i) == *(input + j))
+				return (0);
+		}
+	}
+	return (1);
+}
+
+int				print_error(long long int *input)
+{
+	if (input)
+		free(input);
+	ft_putstr("Error\n");
+	return (0);
+}
+
+int				build_stack(t_stack **a, int argc, char const *argv[])
+{
+	int				i;
+	long long int	*input;
+	int				error;
+
+	i = -1;
+	error = 0;
+	input = (long long int*)malloc(sizeof(long long int) * (argc - 1));
+	while (++i < argc - 1)
+	{
+		*(input + i) = long_atoi(argv[i + 1], &error);
+		if (error || (*(input + i) > MAX) || (*(input + i) < MIN))
+			return (print_error(input));
+	}
+	if (!check_duplicates(input, argc - 1))
+		return (print_error(input));
+	*a = init_stack(input, argc - 1);
+	free(input);
+	return (1);
 }
