@@ -71,7 +71,7 @@ void			push_max(t_stack **aa, t_stack **bb)
 			if (aa && (*aa) && ((*aa)->value > last->value))
 				ft_putstr(rrr(aa, bb));
 			else
-				ft_putstr(rrb(bb));
+				ft_putstr(rrb(0, bb));
 			push_max(aa, bb);
 		}
 		else if (next->value > first->value && next->value > b->value)
@@ -79,11 +79,11 @@ void			push_max(t_stack **aa, t_stack **bb)
 			if (next->next && ((next->next)->value > (b)->value)
 				&& ((next->next)->value > first->value))
 			{
-				ft_putstr(rb(aa));
+				ft_putstr(rb(0, aa));
 				push_max(aa, bb);
 			}
 			else
-				ft_putstr(sb(*bb));
+				ft_putstr(sb(0, bb));
 		}
 		ft_putstr(pa(aa, bb));
 	}
@@ -112,7 +112,7 @@ void			push_min(t_stack **aa, t_stack **bb)
 			if ((*bb) && b && (b->value > (*bb)->value))
 				ft_putstr(rrr(aa, bb));
 			else
-				ft_putstr(rra(aa));
+				ft_putstr(rra(aa, 0));
 			push_min(aa, bb);
 		}
 		else if (next->value < first->value && next->value < last->value)
@@ -120,11 +120,11 @@ void			push_min(t_stack **aa, t_stack **bb)
 			if (next->next && ((next->next)->value < last->value)
 				&& ((next->next)->value < first->value))
 			{
-				ft_putstr(ra(aa));
+				ft_putstr(ra(aa, 0));
 				push_min(aa, bb);
 			}
 			else
-				ft_putstr(sa(*aa));
+				ft_putstr(sa(aa, 0));
 		}
 		if (!is_stack_sorted(*aa))
 			ft_putstr(pb(aa, bb));
@@ -146,7 +146,7 @@ int			is_rev_sorted(t_stack **aa)
 			return (0);
 		a = a->next;
 	}
-	ft_putstr(sa(*aa));
+	ft_putstr(sa(aa, 0));
 	return (1);
 }
 

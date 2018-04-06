@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/29 19:03:30 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/05 17:37:33 by amatsuk          ###   ########.fr       */
+/*   Created: 2017/10/13 15:52:48 by amatsuk           #+#    #+#             */
+/*   Updated: 2018/04/05 19:18:04 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int main(int argc, char const *argv[])
-{
-	t_stack			*stack;
-	t_stack			*b_stack;
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft.h"
 
-	b_stack = NULL;
-	if (argc > 1) 
-	{
-		if (!build_stack(&stack, argc, argv))
-			return (1);
-		sort_stack(&stack, &b_stack);
-		//printf("\nresult:\n");
-		//printstack(stack);
-		free_stack(b_stack);
-		free_stack(stack);
-	}
-	return 0;
-}
+# define BUFF_SIZE 222
+# define FD_LIMIT 8192
+
+int		get_next_line(const int fd, char **line);
+char	*validate_input_file(char *file);
+
+#endif

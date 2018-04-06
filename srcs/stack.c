@@ -6,17 +6,18 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 12:52:13 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/02 17:54:53 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/05 16:03:11 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 
-char		*ra(t_stack **a)
+char		*ra(t_stack **a, t_stack **b)
 {
 	t_stack *tmp;
 	t_stack *iter;
 
+	b = NULL;
 	if (a && *a && (*a)->next)
 	{
 		tmp = *a;

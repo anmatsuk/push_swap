@@ -5,7 +5,9 @@ FILES = srcs/sorting_methods.c \
 		srcs/stack.c \
 		srcs/stack_commands.c \
 		srcs/stack_commands2.c \
-		srcs/utils.c
+		srcs/utils.c \
+		srcs/checker_dispatch.c \
+		srcs/get_next_line.c
 		
 CHECKER_FILES = src/checker.c
 OBJECTS = $(FILES:srcs/%.c=%.o)

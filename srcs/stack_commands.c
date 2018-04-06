@@ -32,28 +32,30 @@ char		*pa(t_stack **a, t_stack **b)
 	return ("pa\n");
 }
 
-char		*sa(t_stack *a)
+char		*sa(t_stack **a, t_stack **b)
 {
 	long long int tmp;
 
-	if (a && a->next)
+	b = 0;
+	if (a && *a && (*a)->next)
 	{
-		tmp = a->value;
-		a->value = (a->next)->value;
-		(a->next)->value = tmp;
+		tmp = (*a)->value;
+		(*a)->value = ((*a)->next)->value;
+		((*a)->next)->value = tmp;
 	}
 	return ("sa\n");
 }
 
-char		*sb(t_stack *b)
+char		*sb(t_stack **a, t_stack **b)
 {
-	sa(b);
+	sa(b, 0);
+	a = NULL;
 	return ("sb\n");
 }
 
-char		*ss(t_stack *a, t_stack *b)
+char		*ss(t_stack **a, t_stack **b)
 {
-	sa(a);
-	sa(b);
+	sa(a, 0);
+	sa(b, 0);
 	return ("ss\n");
 }
