@@ -6,7 +6,7 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 13:59:38 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/04 16:39:47 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/10 17:28:47 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int			is_rev_sorted(t_stack **aa)
 	return (1);
 }
 
+/*
 void		sort_stack(t_stack **a, t_stack **b)
 {
 	if (!a || !*a || !((*a)->next))
@@ -173,3 +174,136 @@ void		sort_stack(t_stack **a, t_stack **b)
 		sort_stack(a, b);
 	}
 }
+
+*/
+//---------------------------- v.2 -------------------------
+void		init_elements(t_stack **stack, t_stack **last, t_stack **next, t_stack **nnext)
+{
+	*last = get_last_element(*stack);
+	*next = (*stack)->next;
+	*nnext = (*next)->next;
+}
+
+void		buble_min(t_stack **a, t_stack **b)
+{
+	t_stack *last;
+	t_stack *next;
+	t_stack *nnext;
+	t_stack *first;
+
+	first = *a;
+	if (is_sorted(*a, *b))
+		return ;
+	init_elements(a, &last, &next, &nnext);
+
+	if (last->value < first->value && last->value <= next->value) //last (rra or rrr)
+	{
+		if (*b && (*b)->next && (*b)->value < (get_last_element(*b))->value) /// rrr
+			ft_putstr(rrr(a, b));
+		else
+			ft_putstr(rra(a, b));
+		buble_min(a, b);
+	}
+	else if (next->value < first->value && next->value < last->value)//next (sa or ra)
+	{
+		if (nnext && first->value < last->value && first->value >= nnext->value) //ra or rr
+		{
+			if ((*b) && (*b)->next && (*b)->value < (get_last_element(*b))->value && (*b)->value < ((*b)->next)->value)
+				ft_putstr(rr(a, b));
+			else
+				ft_putstr(ra(a, b));
+			buble_min(a, b);
+		}
+		else
+		{
+			if (*b && (*b)->next && (*b)->value < ((*b)->next)->value)
+				ft_putstr(ss(a, b));
+			else
+				ft_putstr(sa(a, b));
+		}
+	}
+}
+
+void		buble_max(t_stack **a, t_stack **b)
+{
+	t_stack *last;
+	t_stack *next;
+	t_stack *nnext;
+	t_stack *first;
+
+	first = *b;
+	if (is_sorted(*a, *b))
+		return ;
+	init_elements(b, &last, &next, &nnext);
+	if (last->value > first->value && last->value >= next->value) //last (rra or rrr)
+	{
+		if (*a && (*a)->next && (*a)->value > (get_last_element(*a))->value) /// rrr
+			ft_putstr(rrr(a, b));
+		else
+			ft_putstr(rrb(a, b));
+		buble_max(a, b);
+	}
+	else if (next->value > first->value && next->value > last->value)//next (sa or ra)
+	{
+		if (nnext && first->value > last->value && first->value <= nnext->value) //ra or rr
+		{
+			if ((*a) && (*a)->next && (*a)->value < (get_last_element(*a))->value && (*a)->value < ((*a)->next)->value)
+				ft_putstr(rr(a, b));
+			else
+				ft_putstr(rb(a, b));
+			buble_max(a, b);
+		}
+		else
+		{
+			if (*a && (*a)->next && (*a)->value < ((*a)->next)->value)
+				ft_putstr(ss(a, b));
+			else
+				ft_putstr(sb(a, b));
+		}
+	}
+}
+
+
+void process_min(t_stack **a, t_stack **b) //min on the head of the a
+{
+	if (*b && (*b)->next)
+	{
+	}
+	ft_putstr(pb(a, b));
+}
+
+void process_max(t_stack **a, t_stack **b) //min on the head of the a
+{
+	if (*a && (*a)->next)
+	{
+	}
+	ft_putstr(pa(a, b));
+}
+
+void		sort_stack(t_stack **a, t_stack **b)
+{
+	// push min to b
+	while ((*a)->next && (!is_sorted(*a, *b)) && (!is_stack_sorted(*a)))
+	{
+		
+		buble_min(a, b);
+		if (!is_sorted(*a, *b))
+			process_min(a, b);
+	}
+	// push max to a
+	while ((*b) && (*b)->next && (!is_sorted(*a, *b)))
+	{
+		buble_max(a, b);
+		if (!is_sorted(*a, *b))
+			process_max(a, b);
+	}
+	if (is_sorted(*a, *b))
+	{
+		while (*b)
+			ft_putstr(pa(a, b));
+	}
+	else
+		sort_stack(a, b);
+	//https://github.com/Matt-Hurd/42-push_swap
+}
+

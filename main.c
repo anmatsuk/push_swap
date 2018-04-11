@@ -6,7 +6,7 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 19:03:30 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/05 17:37:33 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/10 15:24:34 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int main(int argc, char const *argv[])
 	{
 		if (!build_stack(&stack, argc, argv))
 			return (1);
-		sort_stack(&stack, &b_stack);
+		if (stack && stack->next)
+			sort_stack(&stack, &b_stack);
 		//printf("\nresult:\n");
 		//printstack(stack);
 		free_stack(b_stack);
