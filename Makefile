@@ -1,7 +1,7 @@
 NAME = push_swap
 CHECKER = checker
 
-FILES = srcs/sorting_methods.c \
+FILES = srcs/sorting_methods2.c \
 		srcs/stack.c \
 		srcs/stack_commands.c \
 		srcs/stack_commands2.c \

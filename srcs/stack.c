@@ -6,7 +6,7 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 12:52:13 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/05 16:03:11 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/11 15:37:00 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_stack		*new_stack(long long int value)
 		return (NULL);
 	s->value = value;
 	s->next = NULL;
+	s->v = 1;
+	s->len = 1;
 	return (s);
 }
 
@@ -82,6 +84,8 @@ void		printstack(t_stack *head)
 	while (tmp)
 	{
 		ft_putnbr(tmp->value);
+		ft_putchar(' ');
+		ft_putnbr(tmp->len);
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}

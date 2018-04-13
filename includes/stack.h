@@ -6,7 +6,7 @@
 /*   By: amatsuk <amatsuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:40:58 by amatsuk           #+#    #+#             */
-/*   Updated: 2018/04/05 19:09:00 by amatsuk          ###   ########.fr       */
+/*   Updated: 2018/04/11 13:41:49 by amatsuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 typedef struct 			s_stack
 {
 	long long int		value;
+	int					v;
+	int					len;
 	struct s_stack		*next;
 }						t_stack;
 

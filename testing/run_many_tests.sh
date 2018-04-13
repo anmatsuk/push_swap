@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Change Limit for different test size limits!
-LIMIT=5300
+#LIMIT=5300
 
 MAX_OPS=0
 MAX_ARG=0
@@ -27,12 +27,12 @@ do
 		MAX_OPS=$NUM	
 		MAX_ARG=$ARG
 	fi
-	if [[ "$NUM" -gt $LIMIT ]] 
-	then
-		echo "${RED}Your program took $NUM operations; The limit is $LIMIT!${NC}"
-		echo "Here's the Arg: $ARG"
-		continue
-	fi	
+#	if [[ "$NUM" -gt $LIMIT ]] 
+#	then
+#		echo "${RED}Your program took $NUM operations; The limit is $LIMIT!${NC}"
+#		echo "Here's the Arg: $ARG"
+#		continue
+#	fi	
 	echo "${BOLD}${BLUE}$NUM${NC}"
 	printf "Checker: "
 	RES=$(./push_swap $ARG | ./checker $ARG)
